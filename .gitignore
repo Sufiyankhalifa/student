@@ -1,0 +1,16 @@
+# root .gitignore
+node_modules/
+client/node_modules/
+server/node_modules/
+
+dist/
+build/
+client/build/
+
+docker-images/
+*.log
+
+# Never commit secrets
+.env
+server/.env
+client/.env
