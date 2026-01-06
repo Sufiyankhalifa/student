@@ -25,7 +25,7 @@ app.use("/api/courses", require("./routes/courses"));
 const clientBuildPath = path.join(__dirname, "../client/build");
 app.use(express.static(clientBuildPath));
 
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   // Let API routes handle requests that start with /api
   if (req.path.startsWith("/api"))
     return res.status(404).json({ msg: "Not found" });
