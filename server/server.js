@@ -17,18 +17,21 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-// Routes
+// API Routes (ALWAYS FIRST)
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/courses", require("./routes/courses"));
 
-// Serve client build (if present) so server + client can be deployed as one service
+// Serve client build (single-service deployment)
 const clientBuildPath = path.join(__dirname, "../client/build");
 app.use(express.static(clientBuildPath));
 
-app.get("/*", (req, res) => {
-  // Let API routes handle requests that start with /api
-  if (req.path.startsWith("/api"))
-    return res.status(404).json({ msg: "Not found" });
+// React fallback — NODE 22 SAFE
+app.use((req, res) => {
+  // Let API routes fail naturally
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({ msg: "API route not found" });
+  }
+
   res.sendFile(path.join(clientBuildPath, "index.html"));
 });
 
