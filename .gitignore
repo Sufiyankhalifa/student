@@ -6,8 +6,6 @@ server/node_modules/
 dist/
 build/
 client/build/
-
-docker-images/
 *.log
 
 # Never commit secrets
