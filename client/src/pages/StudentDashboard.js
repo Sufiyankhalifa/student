@@ -27,18 +27,12 @@ const StudentDashboard = () => {
         };
 
         // Fetch student profile
-        const studentRes = await axios.get(
-          "http://localhost:5000/api/auth/student",
-          config
-        );
+        const studentRes = await axios.get("/api/auth/student", config);
         setStudent(studentRes.data);
         setEnrolledCourses(studentRes.data.enrolledCourses);
 
         // Fetch all available courses
-        const coursesRes = await axios.get(
-          "http://localhost:5000/api/courses",
-          config
-        );
+        const coursesRes = await axios.get("/api/courses", config);
         setAvailableCourses(coursesRes.data);
         setLoading(false);
       } catch (err) {
@@ -59,16 +53,9 @@ const StudentDashboard = () => {
           "x-auth-token": token,
         },
       };
-      await axios.post(
-        `http://localhost:5000/api/courses/${courseId}/enroll`,
-        {},
-        config
-      );
+      await axios.post(`/api/courses/${courseId}/enroll`, {}, config);
       // Update enrolled courses
-      const updatedStudentRes = await axios.get(
-        "http://localhost:5000/api/auth/student",
-        config
-      );
+      const updatedStudentRes = await axios.get("/api/auth/student", config);
       setEnrolledCourses(updatedStudentRes.data.enrolledCourses);
       alert("Enrolled successfully!");
     } catch (err) {
