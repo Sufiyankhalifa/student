@@ -85,16 +85,9 @@ const StudentDashboard = () => {
           "x-auth-token": token,
         },
       };
-      await axios.post(
-        `http://localhost:5000/api/courses/${courseId}/de-enroll`,
-        {},
-        config
-      );
+      await axios.post(`/api/courses/${courseId}/de-enroll`, {}, config);
       // Update enrolled courses
-      const updatedStudentRes = await axios.get(
-        "http://localhost:5000/api/auth/student",
-        config
-      );
+      const updatedStudentRes = await axios.get("/api/auth/student", config);
       setEnrolledCourses(updatedStudentRes.data.enrolledCourses);
       alert("De-enrolled successfully!");
     } catch (err) {
